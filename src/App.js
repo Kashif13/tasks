@@ -1,27 +1,32 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Counter from './Counter';
+import FetchApiData from './FetchApiData';
 
 function App() {
+
+  // State to manage active tab. 'counter' is the default view since it is the first task.
+  const [activeTab, setActiveTab] = React.useState('counter');
+
+  // Function handling switching tabs
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        {/* Task 1: Counter Component */}
-        <Counter />
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <nav style={{ marginBottom: '20px' }}>
+        <button onClick={() => handleTabChange('counter')}>
+          Task 1: Counter
+        </button>
+        <button onClick={() => handleTabChange('fetch')}>
+          Task 2: Fetch API Data
+        </button>
+      </nav>
+      <div>
+        {activeTab === 'counter' && <Counter />}
+        {activeTab === 'fetch' && <FetchApiData />}
+      </div>
     </div>
   );
 }
